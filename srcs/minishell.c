@@ -46,31 +46,32 @@ void free_tab(char **args)
 ** handle the prompt 
 */
 
-void ft_prompt(t_ms ms)
+void ft_prompt(int ret)
 {
 	int i;
 	char *s;
 	char cwd[PATH_MAX];
-	ft_putstr_fd(BOLDGREEN, STDERR);
-	ft_putnbr_fd(ms.ret, STDERR);
-	ft_putstr_fd(BOLDCYAN, STDERR);
-	ft_putstr_fd(" ", STDERR);
-	s = getcwd(cwd, PATH_MAX);
-	s = cwd;
-	i = 0;
-	while (s[i])
-		i++;
-	while (i > 0 && s[i - 1] != '/')
-		i--;
-	if (!ft_strcmp(s, env_value(ms.env, "HOME")))
-		ft_putstr_fd("~", STDERR);
-	else if (!ft_strcmp(s, "/"))
-		ft_putstr_fd("/", STDERR);
-	else
-		ft_putstr_fd(&s[i], STDERR);
-	ft_putstr_fd(RESET, STDERR);
+	// ft_putstr_fd(BOLDGR+EEN, STDERR);
+	ft_putnbr_fd(ret, STDERR);
+	// ft_putstr_fd(BOLDCYAN, STDERR);
+	// ft_putstr_fd(" ", STDERR);
+	// s = getcwd(cwd, PATH_MAX);
+	// s = cwd;
+	// i = 0;
+	// while (s[i])
+	// 	i++;
+	// while (i > 0 && s[i - 1] != '/')
+	// 	i--;
+	// if (!ft_strcmp(s, env_value(ms.env, "HOME")))
+	// 	ft_putstr_fd("~", STDERR);
+	// else if (!ft_strcmp(s, "/"))
+	// 	ft_putstr_fd("/", STDERR);
+	// else
+	// 	ft_putstr_fd(&s[i], STDERR);
+	// ft_putstr_fd(RESET, STDERR);
 
-	ft_putstr_fd(" 🔥 ", STDERR);
+	// ft_putstr_fd(" 🔥 ", STDERR);
+	ft_putstr_fd(" minshell> ", STDERR);
 }
 
 /*
@@ -169,13 +170,8 @@ void sig_int(int code)
 	(void)code;
 	if (g_sig.pid == 0)
 	{
-		ft_putstr_fd("\b\b  ", STDERR);
-		ft_putstr_fd("\n", STDERR);
-		ft_putstr_fd(BOLDGREEN, STDERR);
-		ft_putnbr_fd(130, STDERR);
-		ft_putstr_fd(BOLDCYAN, STDERR);
-		ft_putstr_fd(" minishell 🔥 ", STDERR);
-		ft_putstr_fd(RESET, STDERR);
+		ft_putstr_fd("\b\b  \n", STDERR);
+		ft_prompt(1);
 		g_sig.exit_status = 1;
 	}
 	else
@@ -189,17 +185,17 @@ void sig_int(int code)
 void sig_quit(int code)
 {
 	char *nbr;
-	nbr = ft_itoa(code);
+	// nbr = ft_itoa(code);
 	if (g_sig.pid != 0)
 	{
 		ft_putstr_fd("Quit: ", STDERR);
-		ft_putendl_fd(nbr, STDERR);
+		// ft_putnbr_fd(code, STDERR);
 		g_sig.exit_status = 131;
 		g_sig.sigquit = 1;
 	}
 	else
-		ft_putstr_fd("\b\b  \b\b no", STDERR);
-	ft_free(nbr);
+		ft_putstr_fd("\b\b  \b\b", 1);
+	// ft_free(nbr);
 }
 
 void sig_init(void)
@@ -220,15 +216,15 @@ int main(int ac, char **av, char **env)
 	ms.out = dup(STDOUT);
 	ms.exit = 0;
 	ms.ret = 0;
-	ft_putendl_fd("minishell\n\tuse it on your own risk\n", STDERR);
 	ft_bzero(&ms, sizeof(t_ms));
 	init_env(&ms, env);
+		ft_putstr_fd(RESET, STDERR);
 	while (ms.exit == 0)
 	{
 		sig_init();
 		signal(SIGINT, &sig_int);
 		signal(SIGQUIT, &sig_quit);
-		ft_prompt(ms);
+		ft_prompt(ms.ret);
 		parse(&ms);
 		if (ms.token && check(&ms, ms.token))
 			minishell(&ms);

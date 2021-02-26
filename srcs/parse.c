@@ -124,10 +124,8 @@ void parse(t_ms *ms)
 
 	line = NULL;
 	if (get_next_line(0, &line) == 2 && (ms->exit = 1))
-	{
-		// ft_putendl_fd("exit", STDERR);
 		return;
-	}
+	ms->ret = g_sig.sigint ? g_sig.exit_status: ms->ret;
 	if (quote_check(ms, line))
 	{
 		ft_free(line);
