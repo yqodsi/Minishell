@@ -27,7 +27,7 @@ void redir(t_ms *ms, t_token *token, int type)
 	{
 		ft_putstr_fd("minishell: ", STDERR);
 		ft_putstr_fd(token->str, STDERR);
-		ft_putendl_fd(": No such file or directory", STDERR);
+		ft_putendl_fd(": Permission denied", STDERR);
 		ms->ret = 1;
 		ms->no_exec = 1;
 		return;
@@ -41,13 +41,27 @@ void redir(t_ms *ms, t_token *token, int type)
 
 void input(t_ms *ms, t_token *token)
 {
+	int exist;
+	struct stat buffer;
+
+	exist = stat(token->str, &buffer);
+	printf("exist %d\n", exist);
 	ft_close(ms->fdin);
 	ms->fdin = open(token->str, O_RDONLY, S_IRWXU);
-	if (ms->fdin == -1)
+	if (ms->fdin == -1 && exist )
 	{
 		ft_putstr_fd("minishell: ", STDERR);
 		ft_putstr_fd(token->str, STDERR);
 		ft_putendl_fd(": No such file or directory", STDERR);
+		ms->ret = 1;
+		ms->no_exec = 1;
+		return;
+	}
+	else if (ms->fdin == -1 )
+	{
+		ft_putstr_fd("minishell: ", STDERR);
+		ft_putstr_fd(token->str, STDERR);
+		ft_putendl_fd(": Permission denied", STDERR);
 		ms->ret = 1;
 		ms->no_exec = 1;
 		return;

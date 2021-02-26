@@ -22,7 +22,7 @@ void export_env(t_env *env, char *key, int len)
 		tmp = tmp->next;
 	if (tmp)
 	{
-		ft_putendl_fd(tmp->value, STDIN);
+		// ft_putendl_fd(tmp->value, STDIN);
 		ft_free(tmp->value);
 		tmp->value = ft_strdup(key);
 	}

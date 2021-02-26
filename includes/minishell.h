@@ -12,7 +12,8 @@
 # include <limits.h>
 # include <errno.h>
 # include <signal.h>
-
+ #include <sys/stat.h>
+ 
 /*
 ** token types 
 */

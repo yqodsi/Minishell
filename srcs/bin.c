@@ -94,9 +94,9 @@ int ft_execve(char *path, char **args, t_env *env, t_ms *ms)
 	}
 	else
 		waitpid(g_sig.pid, &ret, 0);
+	ret = WEXITSTATUS(ret);
 	if (g_sig.sigint || g_sig.sigquit )
 		return	(g_sig.exit_status);
-	ret = WEXITSTATUS(ret);
 	return (ret);
 }
 

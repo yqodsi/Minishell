@@ -49,28 +49,7 @@ void free_tab(char **args)
 void ft_prompt(int ret)
 {
 	int i;
-	char *s;
-	char cwd[PATH_MAX];
-	// ft_putstr_fd(BOLDGR+EEN, STDERR);
 	ft_putnbr_fd(ret, STDERR);
-	// ft_putstr_fd(BOLDCYAN, STDERR);
-	// ft_putstr_fd(" ", STDERR);
-	// s = getcwd(cwd, PATH_MAX);
-	// s = cwd;
-	// i = 0;
-	// while (s[i])
-	// 	i++;
-	// while (i > 0 && s[i - 1] != '/')
-	// 	i--;
-	// if (!ft_strcmp(s, env_value(ms.env, "HOME")))
-	// 	ft_putstr_fd("~", STDERR);
-	// else if (!ft_strcmp(s, "/"))
-	// 	ft_putstr_fd("/", STDERR);
-	// else
-	// 	ft_putstr_fd(&s[i], STDERR);
-	// ft_putstr_fd(RESET, STDERR);
-
-	// ft_putstr_fd(" 🔥 ", STDERR);
 	ft_putstr_fd(" minshell> ", STDERR);
 }
 
@@ -97,7 +76,7 @@ void redir_and_exec(t_ms *ms, t_token *token)
 		pipe = ft_pipe(ms);
 	if (next && is_type(next, END) == 0 && pipe != 1)
 		redir_and_exec(ms, next->next);
-	if ((is_type(prev, END) || is_type(prev, PIPE) || !prev) && pipe != 1)
+	if ((is_type(prev, END) || is_type(prev, PIPE) || !prev) && pipe != 1 && !ms->no_exec )
 		exec_cmd(ms, token);
 }
 
@@ -108,7 +87,6 @@ void minishell(t_ms *ms)
 
 	token = next_run(ms->token, NOSKIP);
 	token = (is_types(ms->token, "TAI")) ? ms->token->next : token;
-	// print_token(token);
 	while (ms->exit == 0 && token)
 	{
 		ms->charge = 1;
@@ -132,16 +110,23 @@ int check(t_ms *ms, t_token *token)
 	{
 		if (is_types(token, "TAI") && (!token->next || is_types(token->next, "TAIPE")))
 		{
-			ft_putstr_fd("bash: syntax error near unexpected token `", STDERR);
-			token->next ? ft_putstr_fd(token->next->str, STDERR) : 0;
-			token->next ? 0 : ft_putstr_fd("newline", STDERR);
+			ft_putstr_fd("minishell: syntax error near unexpected token `", STDERR);
+			token->next ? ft_putstr_fd(token->next->str, STDERR) : ft_putstr_fd("newline", STDERR);
 			ft_putendl_fd("'", STDERR);
 			ms->ret = 2;
 			return (0);
 		}
 		if (is_types(token, "PE") && (!token->prev || !token->next || is_types(token->prev, "TAIPE")))
 		{
-			ft_putstr_fd("bash: syntax error near unexpected token `", STDERR);
+			ft_putstr_fd("minishell: syntax error near unexpected token `", STDERR);
+			ft_putstr_fd(token->str, STDERR);
+			ft_putendl_fd("'", STDERR);
+			ms->ret = 2;
+			return (0);
+		}
+		if (is_types(token, "PE") && (!token->prev  || is_types(token->prev, "TAIPE")))
+		{
+			ft_putstr_fd("minishell: syntax error near unexpected token `", STDERR);
 			ft_putstr_fd(token->str, STDERR);
 			ft_putendl_fd("'", STDERR);
 			ms->ret = 2;
@@ -214,19 +199,19 @@ int main(int ac, char **av, char **env)
 	(void)av;
 	ms.in = dup(STDIN);
 	ms.out = dup(STDOUT);
-	ms.exit = 0;
-	ms.ret = 0;
+	ms.exit = FALSE;
+	ms.ret = EXIT_SUCCESS;
 	ft_bzero(&ms, sizeof(t_ms));
 	init_env(&ms, env);
 		ft_putstr_fd(RESET, STDERR);
-	while (ms.exit == 0)
+	while (ms.exit == FALSE)
 	{
 		sig_init();
 		signal(SIGINT, &sig_int);
 		signal(SIGQUIT, &sig_quit);
 		ft_prompt(ms.ret);
 		parse(&ms);
-		if (ms.token && check(&ms, ms.token))
+		if (ms.token && check(&ms, ms.token) == TRUE)
 			minishell(&ms);
 		free_token(&ms);
 	}
