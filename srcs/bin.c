@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bin.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 23:53:07 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/19 22:07:37 by yqodsi           ###   ########.fr       */
+/*   Updated: 2021/02/26 22:18:35 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ int ft_execve(char *path, char **args, t_env *env, t_ms *ms)
 	}
 	else
 		waitpid(g_sig.pid, &ret, 0);
-	ret = WEXITSTATUS(ret);
-	if (g_sig.sigint || g_sig.sigquit )
+	if (g_sig.exit_status)
 		return	(g_sig.exit_status);
+	ret = WEXITSTATUS(ret);
 	return (ret);
 }
 

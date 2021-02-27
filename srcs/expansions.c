@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 01:30:55 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/19 22:08:13 by yqodsi           ###   ########.fr       */
+/*   Updated: 2021/02/27 00:35:26 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,9 @@ char *expansions(char *arg, t_env *env, int ret)
 			else
 				insert_var(&ex, arg, env, ret);
 		}
-		ex.new_arg[ex.i++] = arg[ex.j++];
+		if (arg[ex.j] != '\"')
+			ex.new_arg[ex.i++] = arg[ex.j];
+		ex.j++;
 	}
 	ex.new_arg[ex.i] = '\0';
 	return (ex.new_arg);

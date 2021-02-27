@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 10:11:25 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/22 16:12:41 by yqodsi           ###   ########.fr       */
+/*   Updated: 2021/02/26 23:58:49 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void parse(t_ms *ms)
 	line = NULL;
 	if (get_next_line(0, &line) == 2 && (ms->exit = 1))
 		return;
-	ms->ret = g_sig.sigint ? g_sig.exit_status: ms->ret;
+	ms->ret = g_sig.exit_status ? g_sig.exit_status: ms->ret;
 	if (quote_check(ms, line))
 	{
 		ft_free(line);

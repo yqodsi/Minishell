@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 15:27:53 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/19 22:08:13 by yqodsi           ###   ########.fr       */
+/*   Updated: 2021/02/27 00:12:19 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,17 @@ t_token *next_token(char *line, int *i)
 		return (NULL);
 	while (line[*i] && (line[*i] != ' ' || c != ' '))
 	{
-		if (c == ' ' && (line[*i] == '\'' || line[*i] == '\"'))
+		if (c == ' ' && line[*i] == '\"')
+		{
+			c = line[*i];
+			token->str[j++] = line[(*i)++];
+		}
+		else if (c == ' ' && line[*i] == '\'' )
 			c = line[(*i)++];
 		else if (c != ' ' && line[*i] == c)
 		{
+			if (c = '\"')
+			token->str[j++] = c;
 			c = ' ';
 			(*i)++;
 		}

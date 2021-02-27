@@ -138,8 +138,6 @@ typedef struct	s_ms
 
 typedef struct	s_sig
 {
-	int				sigint;
-	int				sigquit;
 	int				exit_status;
 	pid_t			pid;
 }				t_sig;
@@ -233,7 +231,10 @@ int env_value_len(const char *env);
 char *value_env(char *env);
 char *get_env_value(char *arg, t_env *env);
 void	ms_exit(t_ms *ms, char **cmd);
-
+void sig_init(void);
+void sig_quit(int code);
+void sig_int(int code);
+void ft_prompt(int ret);
 
 
 t_sig g_sig;

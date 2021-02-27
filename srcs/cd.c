@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 09:19:08 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/22 15:43:28 by yqodsi           ###   ########.fr       */
+/*   Updated: 2021/02/26 23:54:04 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,6 @@ int ft_cd(t_env *env, char **args)
 		if (ret != 0)
 			print_error(args);
 	}
-		
-
 	update_pwd(env);
 	return (ret != 0);
 }
