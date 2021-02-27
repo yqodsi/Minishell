@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 09:20:08 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/22 15:28:12 by yqodsi           ###   ########.fr       */
+/*   Updated: 2021/02/27 15:30:22 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 void ft_env_secret(t_env *env);
+
 
 void export_env(t_env *env, char *key, int len)
 {
@@ -22,7 +23,6 @@ void export_env(t_env *env, char *key, int len)
 		tmp = tmp->next;
 	if (tmp)
 	{
-		// ft_putendl_fd(tmp->value, STDIN);
 		ft_free(tmp->value);
 		tmp->value = ft_strdup(key);
 	}
@@ -52,7 +52,7 @@ static int is_valid(const char *s)
 		i++;
 	}
 	if (s[i] != '=')
-		return (1337);
+		return (1);
 	return (0);
 }
 
