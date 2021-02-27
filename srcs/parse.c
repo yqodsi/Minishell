@@ -6,7 +6,7 @@
 /*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 10:11:25 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/26 23:58:49 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/02/28 00:12:05 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,56 @@ char *sep_space(char *line)
 /*
 **  handle signals , open quotes and and parse tokens from stdin. 
 */
+int		is_last_valid_arg(t_token *token)
+{
+	t_token	*prev;
 
+	if (!token || is_type(token, CMD) || is_type(token, ARG))
+	{
+		prev = prev_sep(token, NOSKIP);
+		if (!prev || is_type(prev, END) || is_type(prev, PIPE))
+			return (1);
+		return (0);
+	}
+	else
+		return (0);
+}
+void	sort_args(t_ms *ms)
+{
+	t_token	*token;
+	t_token	*prev;
+
+	token = ms->token;
+	while (token)
+	{
+		prev = prev_sep(token, NOSKIP);
+		if (is_type(token, ARG) && is_types(prev, "TAI"))
+		{
+			while (is_last_valid_arg(prev) == 0)
+				prev = prev->prev;
+			token->prev->next = token->next;
+			if (token->next)
+				token->next->prev = token->prev;
+			token->prev = prev;
+			token->next = (prev) ? prev->next : ms->token;
+			prev = (prev) ? prev : token;
+			prev->next->prev = token;
+			prev->next = (ms->token->prev) ? prev->next : token;
+			ms->token = (ms->token->prev) ? ms->token->prev : ms->token;
+		}
+		token = token->next;
+	}
+	while (1)
+	{
+		if (is_type(ms->token, ARG))
+			type_arg(ms->token, 0);
+		if ( !ms->token->next)
+			break;
+		ms->token = ms->token->next;
+	}
+	while(ms->token->prev)
+		ms->token = ms->token->prev;
+}
 void parse(t_ms *ms)
 {
 	char *line;
@@ -135,6 +184,10 @@ void parse(t_ms *ms)
 	if (line && line[0] == '$')
 		line[0] = EXPANSION;
 	ms->token = get_tokens(line);
+	sort_args(ms);
 	// print_token(ms->token);
+	
+	print_token(ms->token);
 	ft_free(line);
+	
 }

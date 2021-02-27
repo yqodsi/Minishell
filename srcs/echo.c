@@ -6,7 +6,7 @@
 /*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 09:19:31 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/27 01:01:03 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/02/27 18:09:46 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,10 @@ int ft_echo(char **args)
 		}
 		while (args[i])
 		{
-			if (args[i][0])
-			{
 				if (s_option)
 					write(1, " ", 1);
 				ft_putstr_fd(args[i], 1);
 				s_option = 1;
-			}
 			i++;
 		}
 	}

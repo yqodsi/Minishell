@@ -6,7 +6,7 @@
 /*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 01:30:55 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/27 15:08:45 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/02/27 17:55:55 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,5 +156,10 @@ char *expansions(char *arg, t_env *env, int ret)
 		ex.j++;
 	}
 	ex.new_arg[ex.i] = '\0';
+	if (ex.new_arg[0] == 0 && !ft_strchr(arg, '\"'))
+	{
+		ft_free(ex.new_arg);
+		return NULL;
+	}
 	return (ex.new_arg);
 }

@@ -6,7 +6,7 @@
 /*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 15:27:53 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/27 00:12:19 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/02/28 00:01:57 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void print_token(t_token *t)
 {
 	if (!t)
 		return;
+	while (t->prev)
+		t = t->prev;
 	while (t)
 	{
 		ft_putnbr_fd(t->type, 1);

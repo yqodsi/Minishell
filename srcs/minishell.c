@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 22:29:45 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/22 16:28:11 by yqodsi           ###   ########.fr       */
+/*   Updated: 2021/02/27 21:09:05 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void redir_and_exec(t_ms *ms, t_token *token)
 		pipe = ft_pipe(ms);
 	if (next && is_type(next, END) == 0 && pipe != 1)
 		redir_and_exec(ms, next->next);
-	if ((is_type(prev, END) || is_type(prev, PIPE) || !prev) && pipe != 1 && !ms->no_exec )
+	if ((is_type(prev, END) || is_type(prev, PIPE) || !prev) && pipe != 1 && !ms->no_exec)
 		exec_cmd(ms, token);
 }
 
@@ -101,6 +101,7 @@ void minishell(t_ms *ms)
 			free_token(ms);
 			exit(ms->ret);
 		}
+		ms->no_exec = 0;
 		token = next_run(token, SKIP);
 	}
 }
@@ -124,7 +125,7 @@ int check(t_ms *ms, t_token *token)
 			ms->ret = 2;
 			return (0);
 		}
-		if (is_types(token, "PE") && (!token->prev  || is_types(token->prev, "TAIPE")))
+		if (is_types(token, "PE") && (!token->prev || is_types(token->prev, "TAIPE")))
 		{
 			ft_putstr_fd("minishell: syntax error near unexpected token `", STDERR);
 			ft_putstr_fd(token->str, STDERR);
@@ -150,7 +151,6 @@ void free_env(t_env *env)
 	}
 }
 
-
 int main(int ac, char **av, char **env)
 {
 	t_ms ms;
@@ -163,7 +163,7 @@ int main(int ac, char **av, char **env)
 	ms.ret = EXIT_SUCCESS;
 	ft_bzero(&ms, sizeof(t_ms));
 	init_env(&ms, env);
-		ft_putstr_fd(RESET, STDERR);
+	ft_putstr_fd(RESET, STDERR);
 	while (ms.exit == FALSE)
 	{
 		sig_init();

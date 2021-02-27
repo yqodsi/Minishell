@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 01:26:44 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/19 22:08:13 by yqodsi           ###   ########.fr       */
+/*   Updated: 2021/02/27 17:56:46 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,25 @@ char **cmd_tab(t_token *start)
 void exec_cmd(t_ms *ms, t_token *token)
 {
 	char **cmd;
+	char *exp;
 	int i;
+	int j;
 
 	if (ms->charge == 0)
 		return;
 	cmd = cmd_tab(token);
 	i = 0;
-	while (cmd && cmd[i])
+	j = 0;
+	while (cmd && cmd[j])
 	{
-		cmd[i] = expansions(cmd[i], ms->env, ms->ret);
-		i++;
+		exp = expansions(cmd[j++], ms->env, ms->ret);
+		if (exp)
+		{
+			cmd[i] = exp;
+			i++;
+		}
 	}
+	cmd[i] = NULL;
 	if (cmd && ft_strcmp(cmd[0], "exit") == 0 && has_pipe(token) == 0)
 		ms_exit(ms, cmd);
 	else if (cmd && is_builtin(cmd[0]))
