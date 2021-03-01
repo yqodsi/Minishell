@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 09:16:07 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/22 16:24:34 by yqodsi           ###   ########.fr       */
+/*   Updated: 2021/03/01 18:46:05 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ int exec_builtin(t_ms *ms, char **args)
 
 	result = 0;
 	if (ft_strcmp(args[0], "echo") == 0)
-		ft_echo(args);
+		ft_echo(ms, args);
 	if (ft_strcmp(args[0], "cd") == 0)
 		result = ft_cd(ms->env, args);
 	if (ft_strcmp(args[0], "pwd") == 0)
-		ft_pwd();
+		ft_pwd(ms, args);
 	if (ft_strcmp(args[0], "env") == 0)
 		ft_env(ms->env);
 	if (ft_strcmp(args[0], "export") == 0)

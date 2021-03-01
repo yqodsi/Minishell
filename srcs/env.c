@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 23:10:32 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/19 22:08:13 by yqodsi           ###   ########.fr       */
+/*   Updated: 2021/03/01 18:21:25 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void ft_env(t_env *env)
 {
+	export_env(env, "_=env", 1);
 	while (env)
 	{
 		if (ft_strchr(env->value, '='))
@@ -88,9 +89,12 @@ void ft_env_secret(t_env *env)
 	sort_table(tab);
 	while (tab[i])
 	{
-		ft_putstr_fd("declare -x ", 1);
-		ft_putendl(tab[i]);
+		if (ft_strncmp(tab[i], "_=", 2))
+		{
+			ft_putstr_fd("declare -x ", 1);
+			ft_putendl(tab[i]);
+		}
 		i++;
 	}
-	free_tab(tab);
+	ft_free(tab);
 }

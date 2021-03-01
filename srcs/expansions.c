@@ -6,7 +6,7 @@
 /*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 01:30:55 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/27 17:55:55 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/01 18:11:17 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ char *expansions(char *arg, t_env *env, int ret)
 		while (arg[ex.j] == EXPANSION)
 		{
 			ex.j++;
-			if ((arg[ex.j] == '\0' || ft_isalnum(arg[ex.j]) == 0) && arg[ex.j] != '?')
+			if ((arg[ex.j] == '\0' || ft_isalnum(arg[ex.j]) == 0) && arg[ex.j] != '?' && arg[ex.j] != '_')
 				ex.new_arg[ex.i++] = '$';
 			else
 				insert_var(&ex, arg, env, ret);

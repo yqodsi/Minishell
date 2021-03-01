@@ -154,9 +154,9 @@ int				is_builtin(char	*command);
 ** BUILTINS
 */
 
-int				ft_echo(char **args);
+int				ft_echo(t_ms *ms, char **args);
 int				ft_cd(t_env *env, char **args);
-int				ft_pwd(void);
+int				ft_pwd(t_ms *ms, char **args);
 int				ft_export(t_env *env, char **args);
 void export_env(t_env *env, char *key, int len);
 

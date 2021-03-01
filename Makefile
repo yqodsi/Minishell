@@ -64,9 +64,8 @@ clean:
 	@$(MAKE) clean -C libft/ --no-print-directory
 	@echo " \e[32m\e[1mAll clean!!"
 
-fclean:
+fclean: clean
 	@make fclean -C libft/ --no-print-directory
-	@rm -f $(OBJ)
 	@rm -f $(NAME)
 
 re: fclean all

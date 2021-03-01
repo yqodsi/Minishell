@@ -6,13 +6,13 @@
 /*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 09:19:31 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/27 18:09:46 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/01 18:57:11 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int ft_echo(char **args)
+int ft_echo(t_ms *ms, char **args)
 {
 	int i;
 	int n_option;

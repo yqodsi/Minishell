@@ -6,7 +6,7 @@
 /*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 09:20:08 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/27 15:30:22 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/01 18:49:58 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int ft_export(t_env *env, char **args)
 	int i;
 	int k;
 	int ret;
-
 	ret = 0;
 	i = 1;
 	while (args[i])
@@ -75,5 +74,9 @@ int ft_export(t_env *env, char **args)
 	}
 	if (i == 1)
 		ft_env_secret(env);
+	char *tmp;
+	tmp = ft_strjoin("_=", args[tab_len(args)  - 1]);
+	export_env(env, tmp, 1);
+	ft_free(tmp);
 	return (ret);
 }

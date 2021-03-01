@@ -6,7 +6,7 @@
 /*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 09:19:08 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/26 23:54:04 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/01 18:33:27 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,11 @@ static int go_to_path(int option, t_env *env)
 int ft_cd(t_env *env, char **args)
 {
 	int ret;
+	char *tmp;
+	tmp = ft_strjoin("_=", args[tab_len(args)  - 1]);
+	export_env(env, tmp, 1);
+	ft_free(tmp);
+	update_pwd(env);
 	if (tab_len(args) > 2)
 	{
 		ft_putendl_fd("minishell: cd: too many arguments", STDERR);
@@ -137,6 +142,5 @@ int ft_cd(t_env *env, char **args)
 		if (ret != 0)
 			print_error(args);
 	}
-	update_pwd(env);
 	return (ret != 0);
 }
