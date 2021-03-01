@@ -6,7 +6,7 @@
 /*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 10:11:25 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/28 00:12:05 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/01 11:53:39 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,8 +186,6 @@ void parse(t_ms *ms)
 	ms->token = get_tokens(line);
 	sort_args(ms);
 	// print_token(ms->token);
-	
-	print_token(ms->token);
 	ft_free(line);
 	
 }
