@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bin.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
+/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 23:53:07 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/26 22:18:35 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/01 15:25:13 by yqodsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,6 @@ int exec_bin(char **args, t_env *env, t_ms *ms)
 		ret = ft_execve(args[0], args, env, ms);
 	free_tab(bin);
 	ft_free(path);
+	export_env(ms->env, ft_strjoin("_=", args[tab_len(args) - 1]), 1);
 	return (ret);
 }

@@ -184,7 +184,7 @@ char **lst_to_tab(t_env *lst);
 /*
 ** parsnig
 */
-
+void export_env(t_env *env, char *key, int len);
 void parse(t_ms *ms);
 int		is_sep(char *line, int i);
 int		ignore_sep(char *line, int i);

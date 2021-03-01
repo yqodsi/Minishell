@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
+/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 10:11:25 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/01 11:53:39 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/01 15:31:55 by yqodsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,8 @@ void	sort_args(t_ms *ms)
 	t_token	*prev;
 
 	token = ms->token;
+	if (!token)
+		return ;
 	while (token)
 	{
 		prev = prev_sep(token, NOSKIP);
@@ -160,7 +162,7 @@ void	sort_args(t_ms *ms)
 	{
 		if (is_type(ms->token, ARG))
 			type_arg(ms->token, 0);
-		if ( !ms->token->next)
+		if (!ms->token->next)
 			break;
 		ms->token = ms->token->next;
 	}
@@ -184,6 +186,7 @@ void parse(t_ms *ms)
 	if (line && line[0] == '$')
 		line[0] = EXPANSION;
 	ms->token = get_tokens(line);
+	// print_token(ms->token);
 	sort_args(ms);
 	// print_token(ms->token);
 	ft_free(line);
