@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   tools1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 13:08:43 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/19 22:08:13 by yqodsi           ###   ########.fr       */
+/*   Updated: 2021/03/02 15:42:32 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void las_cmd(t_ms *ms, char **args)
+{
+	char *tmp;
+	tmp = ft_strjoin("_=", args[tab_len(args) - 1]);
+	export_env(ms->env, tmp, 1);
+	ft_free(tmp);
+}
 
 size_t size_env(t_env *lst)
 {
@@ -132,15 +140,6 @@ void add_env(t_env *env, char *value)
 
 void init_env(t_ms *ms, char **env)
 {
-	// t_env *my_env;
-	// int i;
-
-	// i = 1;
-	// my_env = new_env(env[0]);
-	// while (env[i])
-	// 	add_env(my_env, env[i++]);
-	// ms->env = my_env;
-	//
 	char *buf;
 	char *shlvl;
 	int shl;

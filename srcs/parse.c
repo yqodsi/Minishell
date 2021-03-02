@@ -6,7 +6,7 @@
 /*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 10:11:25 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/02 14:23:42 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/02 18:30:01 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,6 @@ void	sort_args(t_ms *ms)
 	t_token	*prev;
 
 	token = ms->token;
-	if (!token)
-		return ;
 	while (token)
 	{
 		prev = prev_sep(token, NOSKIP);
@@ -158,23 +156,48 @@ void	sort_args(t_ms *ms)
 		}
 		token = token->next;
 	}
-	while (1)
+	token = ms->token;
+	while (token)
 	{
-		if (is_type(ms->token, ARG))
-			type_arg(ms->token, 0);
-		if (!ms->token->next)
-			break;
-		ms->token = ms->token->next;
+		if (is_type(token, ARG))
+			type_arg(token, 0);
+		token = token->next;
 	}
-	while(ms->token->prev)
-		ms->token = ms->token->prev;
+}
+
+int get_input(char **line)
+{
+    int n;
+    char *buf;
+    char *tmp = NULL;
+    buf = malloc(BUFFER_SIZE + 1);
+    n = 1;
+    *line = ft_strdup("");
+    while (n >= 0)
+    {
+        tmp = *line;
+        n = read(0, buf, BUFFER_SIZE);
+        buf[BUFFER_SIZE] = 0;
+        if (n == 0 && *line[0] == '\0')
+            return(2);
+        if (n)
+        {
+            if (ft_strchr(buf, '\n'))
+                break;
+            *line = ft_strjoin(*line, buf);
+            ft_free(tmp);
+        }
+    }
+    ft_free(buf);
+    return (0);
 }
 void parse(t_ms *ms)
 {
 	char *line;
 
 	line = NULL;
-	if (get_next_line(0, &line) == 2 && (ms->exit = 1))
+	if (get_input(&line) == 2 && (ms->exit = 1))
+	// if (get_next_line(0, &line) == 2 && (ms->exit = 1))
 		return;
 	ms->ret = g_sig.exit_status ? g_sig.exit_status: ms->ret;
 	if (quote_check(ms, line))
@@ -186,7 +209,6 @@ void parse(t_ms *ms)
 	if (line && line[0] == '$')
 		line[0] = EXPANSION;
 	ms->token = get_tokens(line);
-	// print_token(ms->token);
 	sort_args(ms);
 	// print_token(ms->token);
 	ft_free(line);

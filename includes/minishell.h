@@ -235,6 +235,7 @@ void sig_init(void);
 void sig_quit(int code);
 void sig_int(int code);
 void ft_prompt(int ret);
+void las_cmd(t_ms *ms, char **args);
 
 
 t_sig g_sig;
