@@ -6,7 +6,7 @@
 /*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 01:26:44 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/27 17:56:46 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/02 14:45:31 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void exec_cmd(t_ms *ms, t_token *token)
 	cmd[i] = NULL;
 	if (cmd && ft_strcmp(cmd[0], "exit") == 0 && has_pipe(token) == 0)
 		ms_exit(ms, cmd);
+	if (!cmd[0])
+		ms->ret = 0;
 	else if (cmd && is_builtin(cmd[0]))
 		ms->ret = exec_builtin(ms, cmd);
 	else if (cmd)

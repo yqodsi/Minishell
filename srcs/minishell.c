@@ -6,7 +6,7 @@
 /*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 22:29:45 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/27 21:09:05 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/02 14:48:05 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,8 +159,6 @@ int main(int ac, char **av, char **env)
 	(void)av;
 	ms.in = dup(STDIN);
 	ms.out = dup(STDOUT);
-	ms.exit = FALSE;
-	ms.ret = EXIT_SUCCESS;
 	ft_bzero(&ms, sizeof(t_ms));
 	init_env(&ms, env);
 	ft_putstr_fd(RESET, STDERR);

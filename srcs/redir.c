@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 01:22:11 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/19 22:08:13 by yqodsi           ###   ########.fr       */
+/*   Updated: 2021/03/02 14:27:26 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,8 @@ void input(t_ms *ms, t_token *token)
 	struct stat buffer;
 
 	exist = stat(token->str, &buffer);
-	printf("exist %d\n", exist);
-	ft_close(ms->fdin);
-	ms->fdin = open(token->str, O_RDONLY, S_IRWXU);
-	if (ms->fdin == -1 && exist )
+	// printf("exist %d\n", exist);
+	if (exist )
 	{
 		ft_putstr_fd("minishell: ", STDERR);
 		ft_putstr_fd(token->str, STDERR);
@@ -57,7 +55,9 @@ void input(t_ms *ms, t_token *token)
 		ms->no_exec = 1;
 		return;
 	}
-	else if (ms->fdin == -1 )
+	ft_close(ms->fdin);
+	ms->fdin = open(token->str, O_RDONLY, S_IRWXU);
+	if (ms->fdin == -1 )
 	{
 		ft_putstr_fd("minishell: ", STDERR);
 		ft_putstr_fd(token->str, STDERR);

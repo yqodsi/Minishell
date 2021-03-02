@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bin.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 23:53:07 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/01 15:25:13 by yqodsi           ###   ########.fr       */
+/*   Updated: 2021/03/02 14:52:09 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int ft_execve(char *path, char **args, t_env *env, t_ms *ms)
 	g_sig.pid = fork();
 	if (g_sig.pid == 0)
 	{
+		
 		env_array = lst_to_tab(ms->env);
 		if (ft_strchr(path, '/') != NULL)
 			execve(path, args, env_array);
