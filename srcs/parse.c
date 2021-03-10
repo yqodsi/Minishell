@@ -6,7 +6,7 @@
 /*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 10:11:25 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/02 18:30:01 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/10 21:19:19 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int quote_check(t_ms *ms, char *line)
 }
 
 /*
-** allocat space for the added space new line
+** allocat mem for the added space new line
 */
 
 char *space_alloc(char *line)
@@ -79,7 +79,7 @@ char *space_alloc(char *line)
 }
 
 /*
-** add spaces arround separators
+** add spaces arround separators and mark expantions positions
 */
 
 char *sep_space(char *line)
@@ -114,9 +114,6 @@ char *sep_space(char *line)
 	return (new);
 }
 
-/*
-**  handle signals , open quotes and and parse tokens from stdin. 
-*/
 int		is_last_valid_arg(t_token *token)
 {
 	t_token	*prev;
@@ -197,7 +194,6 @@ void parse(t_ms *ms)
 
 	line = NULL;
 	if (get_input(&line) == 2 && (ms->exit = 1))
-	// if (get_next_line(0, &line) == 2 && (ms->exit = 1))
 		return;
 	ms->ret = g_sig.exit_status ? g_sig.exit_status: ms->ret;
 	if (quote_check(ms, line))
@@ -210,7 +206,6 @@ void parse(t_ms *ms)
 		line[0] = EXPANSION;
 	ms->token = get_tokens(line);
 	sort_args(ms);
-	// print_token(ms->token);
 	ft_free(line);
-	
 }
+	// print_token(ms->token);

@@ -6,7 +6,7 @@
 /*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 13:08:43 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/02 15:42:32 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/10 21:12:09 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,17 +140,14 @@ void add_env(t_env *env, char *value)
 
 void init_env(t_ms *ms, char **env)
 {
-	char *buf;
-	char *shlvl;
-	int shl;
+	t_sl sl;
 	int i;
-	char cwd[PATH_MAX];
 
 	if (!env[0])
 	{
-		getcwd(cwd, PATH_MAX);
-		buf = ft_strjoin("PWD=", cwd);
-		ms->env = new_env(buf);
+		getcwd(sl.cwd, PATH_MAX);
+		sl.buf = ft_strjoin("PWD=", sl.cwd);
+		ms->env = new_env(sl.buf);
 		add_env(ms->env, "SHLVL=1");
 	}
 	else
@@ -159,13 +156,11 @@ void init_env(t_ms *ms, char **env)
 		i = 1;
 		while (env[i])
 			add_env(ms->env, env[i++]);
-		shl = ft_atoi(env_value(ms->env, "SHLVL")) + 1;
-		buf = ft_itoa(shl);
-
-		shlvl = ft_strjoin("SHLVL=", buf);
-
-		export_env(ms->env, shlvl, 5);
-		ft_free(buf);
-		ft_free(shlvl);
+		sl.shl = ft_atoi(env_value(ms->env, "SHLVL")) + 1;
+		sl.buf = ft_itoa(sl.shl);
+		sl.shlvl = ft_strjoin("SHLVL=", sl.buf);
+		export_env(ms->env, sl.shlvl, 5);
+		ft_free(sl.buf);
+		ft_free(sl.shlvl);
 	}
 }

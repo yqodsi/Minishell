@@ -50,8 +50,7 @@ $(OBJ_DIR)%.o:$(SRCS_DIR)%.c $(INC_DIR)*.h
 
 all:
 	@mkdir -p $(OBJ_DIR)
-	@$(MAKE) $(NAME) --no-print-directory
-	@echo " \e[32m\e[1mEveryThing is Good!!"
+	$(MAKE) $(NAME) --no-print-directory
 
 make_libft:
 	@make -C libft/
@@ -62,7 +61,6 @@ $(NAME): $(OBJ) $(INC_DIR) make_libft
 clean:
 	@$(RM_DIR) $(OBJ_DIR)
 	@$(MAKE) clean -C libft/ --no-print-directory
-	@echo " \e[32m\e[1mAll clean!!"
 
 fclean: clean
 	@make fclean -C libft/ --no-print-directory
