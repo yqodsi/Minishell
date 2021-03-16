@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
+/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 01:26:44 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/02 15:23:49 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/16 14:41:17 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char **cmd_tab(t_token *start)
 {
 	t_token *token;
-	char **tab;
+	char **table;
 	int i;
 
 	if (!start)
@@ -27,18 +27,18 @@ char **cmd_tab(t_token *start)
 		token = token->next;
 		i++;
 	}
-	if (!(tab = malloc(sizeof(char *) * i)))
+	if (!(table = malloc(sizeof(char *) * i)))
 		return (NULL);
 	token = start->next;
-	tab[0] = start->str;
+	table[0] = start->str;
 	i = 1;
 	while (token && token->type < TRUNC)
 	{
-		tab[i++] = token->str;
+		table[i++] = token->str;
 		token = token->next;
 	}
-	tab[i] = NULL;
-	return (tab);
+	table[i] = NULL;
+	return (table);
 }
 
 void exec_cmd(t_ms *ms, t_token *token)

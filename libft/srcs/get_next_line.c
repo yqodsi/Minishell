@@ -6,7 +6,7 @@
 /*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/20 22:05:39 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/02 17:42:44 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/14 01:53:17 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ int get_next_line(int fd, char **line)
 			return (-1);
 		free(temp);
 	}
-	if (n == 0 && oldline[fd][0] == '\0')
-		return (2);
+	// if (n == 0 && oldline[fd][0] == '\0')
+	// 	return (2);
 	free(buf);
 	return (ft_rmp(oldline, n, line, fd));
 }

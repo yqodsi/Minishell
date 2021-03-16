@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
+/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 13:08:43 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/10 21:12:09 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/16 14:42:04 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,21 @@ size_t size_env(t_env *lst)
 char **lst_to_tab(t_env *lst)
 {
 	size_t len;
-	char **tab;
+	char **table;
 	int i;
 
 	if (!lst)
 		return (NULL);
 	len = size_env(lst);
-	tab = malloc(sizeof(char **) * (len + 1));
+	table = malloc(sizeof(char **) * (len + 1));
 	i = 0;
 	while (lst)
 	{
-		tab[i++] = lst->value;
+		table[i++] = lst->value;
 		lst = lst->next;
 	}
-	tab[i] = NULL;
-	return (tab);
+	table[i] = NULL;
+	return (table);
 }
 
 int env_len(char *s)

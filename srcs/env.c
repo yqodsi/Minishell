@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
+/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 23:10:32 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/02 15:41:16 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/16 14:40:50 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,24 @@ int lst_len(t_env *env)
 
 char **lst_totab(t_env *env)
 {
-	char **tab;
+	char **table;
 	int len;
 	int i;
 
 	len = lst_len(env);
-	tab = malloc(sizeof(char *) * (len + 1));
+	table = malloc(sizeof(char *) * (len + 1));
 	i = 0;
 	while (i < len)
 	{
-		tab[i] = env->value;
+		table[i] = env->value;
 		env = env->next;
 		i++;
 	}
-	tab[len] = NULL;
-	return (tab);
+	table[len] = NULL;
+	return (table);
 }
 
-void sort_table(char **tab)
+void sort_tab(char **table)
 {
 	int i;
 	char *tmp;
@@ -65,13 +65,13 @@ void sort_table(char **tab)
 	{
 		flag = 0;
 		i = 0;
-		while (tab[i + 1])
+		while (table[i + 1])
 		{
-			if (ft_strcmp(tab[i], tab[i + 1]) > 0)
+			if (ft_strcmp(table[i], table[i + 1]) > 0)
 			{
-				tmp = tab[i + 1];
-				tab[i + 1] = tab[i];
-				tab[i] = tmp;
+				tmp = table[i + 1];
+				table[i + 1] = table[i];
+				table[i] = tmp;
 				flag = 1;
 			}
 			i++;
@@ -81,20 +81,20 @@ void sort_table(char **tab)
 
 void ft_env_secret(t_env *env)
 {
-	char **tab;
+	char **table;
 	int i;
 
 	i = 0;
-	tab = lst_totab(env);
-	sort_table(tab);
-	while (tab[i])
+	table = lst_totab(env);
+	sort_tab(table);
+	while (table[i])
 	{
-		if (ft_strncmp(tab[i], "_=", 2))
+		if (ft_strncmp(table[i], "_=", 2))
 		{
 			ft_putstr_fd("declare -x ", 1);
-			ft_putendl(tab[i]);
+			ft_putendl(table[i]);
 		}
 		i++;
 	}
-	ft_free(tab);
+	ft_free(table);
 }

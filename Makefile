@@ -2,10 +2,12 @@ NAME = minishell
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -I includes/ -I libft/includes/
-
+# CFLAGS = -Wall -Wextra -Werror -I includes/ -I libft/includes/
+CFLAGS = -I includes/ -I libft/includes/ -I ft_readline/includes/
 
 HEADER = minishell.h
+
+
 
 SRCS_DIR	=	./srcs/
 OBJ_DIR		=	./objs/
@@ -40,12 +42,13 @@ OBJ			=	$(addprefix $(OBJ_DIR),$(SRC:.c=.o))
 INC			=	$(addprefix -I,$(INC_DIR))
 
 LIBFT		=	./libft/libft.a
+TERMCAP =	ft_readline/readline -ltermcap  -lncurses
 
 RM			=	/bin/rm -f
 RM_DIR		=	/bin/rm -rf
 
 $(OBJ_DIR)%.o:$(SRCS_DIR)%.c $(INC_DIR)*.h
-	$(CC)  $(INC) -c $< -o $@
+	$(CC)  $(CFLAGS) -c $< -o $@
 
 
 all:
@@ -54,16 +57,20 @@ all:
 
 make_libft:
 	@make -C libft/
+make_readline:
+	@make -C ft_readline/
 
-$(NAME): $(OBJ) $(INC_DIR) make_libft 
-	@$(CC)  $(OBJ) $(LIBFT) -I  $(INC) -o $(NAME)
+$(NAME): $(OBJ) $(INC_DIR) make_libft make_readline
+	@$(CC)  $(OBJ) $(LIBFT) $(TERMCAP) -o $(NAME)
 
 clean:
 	@$(RM_DIR) $(OBJ_DIR)
+	@$(MAKE) clean -C ft_readline --no-print-directory
 	@$(MAKE) clean -C libft/ --no-print-directory
 
 fclean: clean
 	@make fclean -C libft/ --no-print-directory
+	@make fclean -C ft_readline --no-print-directory
 	@rm -f $(NAME)
 
 re: fclean all

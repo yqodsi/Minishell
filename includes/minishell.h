@@ -1,9 +1,8 @@
 #ifndef MINISHELL_H
 #define MINISHELL_H
 
-#include "../libft/includes/libft.h"
-#include <stdlib.h>
-#include <unistd.h>
+#include "libft.h"
+#include "readline.h"
 #include <stdio.h>
 #include <string.h>
 #include <fcntl.h>
@@ -118,8 +117,17 @@ typedef struct s_env
 	struct s_env *next;
 } t_env;
 
+typedef struct s_sig
+{
+	int exit_status;
+	pid_t pid;
+} t_sig;
+
+
 typedef struct s_ms
 {
+	char prompt[17];
+	char *line;
 	t_env *env;
 	t_token *token;
 	int exit;
@@ -135,13 +143,10 @@ typedef struct s_ms
 	int parent;
 	int last;
 	int no_exec;
+	t_list *hist;
+	int	h_fd;
 } t_ms;
 
-typedef struct s_sig
-{
-	int exit_status;
-	pid_t pid;
-} t_sig;
 
 /*
 ** EXEC
@@ -236,5 +241,6 @@ void ft_prompt(int ret);
 void las_cmd(t_ms *ms, char **args);
 
 t_sig g_sig;
+
 
 #endif

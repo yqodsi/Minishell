@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
+/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 10:11:25 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/10 21:19:19 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/16 17:58:15 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,9 @@ char *sep_space(char *line)
 	return (new);
 }
 
-int		is_last_valid_arg(t_token *token)
+int is_last_valid_arg(t_token *token)
 {
-	t_token	*prev;
+	t_token *prev;
 
 	if (!token || is_type(token, CMD) || is_type(token, ARG))
 	{
@@ -128,10 +128,10 @@ int		is_last_valid_arg(t_token *token)
 	else
 		return (0);
 }
-void	sort_args(t_ms *ms)
+void sort_args(t_ms *ms)
 {
-	t_token	*token;
-	t_token	*prev;
+	t_token *token;
+	t_token *prev;
 
 	token = ms->token;
 	while (token)
@@ -164,48 +164,70 @@ void	sort_args(t_ms *ms)
 
 int get_input(char **line)
 {
-    int n;
-    char *buf;
-    char *tmp = NULL;
-    buf = malloc(BUFFER_SIZE + 1);
-    n = 1;
-    *line = ft_strdup("");
-    while (n >= 0)
-    {
-        tmp = *line;
-        n = read(0, buf, BUFFER_SIZE);
-        buf[BUFFER_SIZE] = 0;
-        if (n == 0 && *line[0] == '\0')
-            return(2);
-        if (n)
-        {
-            if (ft_strchr(buf, '\n'))
-                break;
-            *line = ft_strjoin(*line, buf);
-            ft_free(tmp);
-        }
-    }
-    ft_free(buf);
-    return (0);
+	int n;
+	char *buf;
+	char *tmp = NULL;
+	buf = malloc(BUFFER_SIZE + 1);
+	n = 1;
+	*line = ft_strdup("");
+	while (n >= 0)
+	{
+		tmp = *line;
+		n = read(0, buf, BUFFER_SIZE);
+		buf[BUFFER_SIZE] = 0;
+		if (n == 0 && *line[0] == '\0')
+			return (2);
+		if (n)
+		{
+			if (ft_strchr(buf, '\n'))
+				break;
+			*line = ft_strjoin(*line, buf);
+			ft_free(tmp);
+		}
+	}
+	ft_free(buf);
+	return (0);
 }
+
+void prompt(t_ms *ms)
+{
+	int ret = ms->ret;
+	int i = 0;
+	int a = 100;
+	while (a)
+	{
+		ms->prompt[i++] = ret / a + 48;
+		ret %= a;
+		a /= 10;
+	}
+	ft_memcpy(&ms->prompt[i], " minishell > ", 14);
+}
+
 void parse(t_ms *ms)
 {
 	char *line;
 
 	line = NULL;
-	if (get_input(&line) == 2 && (ms->exit = 1))
+	// if (get_input(&line) == 2 && (ms->exit = 1))
+	// 	return;
+	prompt(ms);
+	if (!(ms->line = ft_readline(ms->prompt, ms->hist, &ms->exit, &ms->ret)) )
 		return;
-	ms->ret = g_sig.exit_status ? g_sig.exit_status: ms->ret;
-	if (quote_check(ms, line))
+	ft_putchar('\n');
+	appand_history(ms->line, ms->h_fd);
+	if (ms->line && ms->line[0])
+			ft_lstadd_back(&ms->hist, ft_lstnew(ms->line));
+	// ms->ret = g_sig.exit_status ? g_sig.exit_status : ms->ret;
+	if (quote_check(ms, ms->line))
 	{
-		ft_free(line);
+		ft_free(ms->line);
 		return;
 	}
-	line = sep_space(line);
-	if (line && line[0] == '$')
-		line[0] = EXPANSION;
-	ms->token = get_tokens(line);
+	ms->line = sep_space(ms->line);
+	if (ms->line && ms->line[0] == '$')
+		ms->line[0] = EXPANSION;
+	ms->token = get_tokens(ms->line);
 	sort_args(ms);
-	ft_free(line);
+	ft_free(ms->line);
 }
-	// print_token(ms->token);
+// print_token(ms->token);

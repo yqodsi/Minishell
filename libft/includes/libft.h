@@ -6,7 +6,7 @@
 /*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 18:30:14 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/02 18:30:10 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/15 16:23:53 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int				ft_strisnum(char *s);
 void			ft_putstr(char *s);
 void			ft_putendl(char *s);
 int				tab_len(char **tab);
+char			*ft_strcpy(char *dst, const char *src);
+
 
 
 

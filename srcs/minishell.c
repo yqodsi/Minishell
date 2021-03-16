@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
+/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 22:29:45 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/10 21:14:47 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/16 17:42:43 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-
 
 void free_tab(char **args)
 {
@@ -141,12 +139,14 @@ int main(int ac, char **av, char **env)
 	ms.in = dup(STDIN);
 	ms.out = dup(STDOUT);
 	init_env(&ms, env);
+	sig_init();
+	signal(SIGINT, &sig_int);
+	signal(SIGQUIT, &sig_quit);
+	ms.hist = retrieve_history(&ms.h_fd);
 	while (ms.exit == FALSE)
 	{
 		sig_init();
-		signal(SIGINT, &sig_int);
-		signal(SIGQUIT, &sig_quit);
-		ft_prompt(ms.ret);
+		// ft_prompt(ms.ret);
 		parse(&ms);
 		if (ms.token && check(&ms, ms.token) == TRUE)
 			minishell(&ms);

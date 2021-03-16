@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/12 16:09:12 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/12 16:10:29 by isel-jao         ###   ########.fr       */
+/*   Created: 2021/03/15 16:23:15 by isel-jao          #+#    #+#             */
+/*   Updated: 2021/03/15 16:23:32 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-void ft_putstr(char *s)
+char *ft_strcpy(char *dst, const char *src)
 {
-	if (*s)
-		while (*s)
-			write(1, s++, 1);
+	char *ret;
+
+	ret = &(*dst);
+	while (*src)
+		*dst++ = *src++;
+	*dst = '\0';
+	return (ret);
 }

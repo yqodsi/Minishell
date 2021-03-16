@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
+/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 09:16:07 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/01 18:46:05 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/16 16:57:39 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,7 @@ int is_builtin(char *command)
 	return (0);
 }
 
-void ft_exit (void)
-{
-	printf("sfsfsf");
-	exit(0);
-}
+
 
 
 int exec_builtin(t_ms *ms, char **args)

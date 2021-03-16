@@ -53,6 +53,7 @@ SRCS	+=	ft_toupper.c
 SRCS	+=	ft_isascii.c 
 SRCS	+=	ft_memcmp.c 
 SRCS	+=	ft_putstr_fd.c 
+SRCS	+=	ft_putstr.c 
 SRCS	+=	ft_strmapi.c 
 SRCS	+=	ft_isdigit.c 
 SRCS	+=	ft_memcpy.c 
@@ -64,6 +65,7 @@ SRCS	+=	ft_strcmp.c
 SRCS	+=	ft_putendl.c 
 SRCS	+=	ft_strisnum.c 
 SRCS	+=	tab_len.c 
+SRCS	+=	ft_strcpy.c 
 
 OBJ			=	$(addprefix $(OBJ_DIR),$(SRCS:.c=.o))
 
