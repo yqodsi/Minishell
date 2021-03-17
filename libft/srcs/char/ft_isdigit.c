@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/02 09:19:48 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/17 14:48:01 by isel-jao         ###   ########.fr       */
+/*   Created: 2019/10/22 16:13:39 by isel-jao          #+#    #+#             */
+/*   Updated: 2021/03/17 15:05:31 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-int ft_pwd(t_ms *ms, char **args)
+int	ft_isdigit(int c)
 {
-	char cwd[PATH_MAX];
-	char *tmp;
-	tmp = ft_strjoin("_=", args[tab_len((void **)args) - 1]);
-	export_env(ms->env, tmp, 1);
-	ft_free(tmp);
-	if (getcwd(cwd, PATH_MAX))
-	{
-		ft_putendl_fd(cwd, 1);
-		return (SUCCESS);
-	}
-	else
-		return (ERROR);
+	return (c <= '9' && c >= '0');
 }

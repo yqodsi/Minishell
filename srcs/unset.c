@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
+/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 09:19:56 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/01 18:36:10 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/17 14:48:59 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int ft_unset(t_ms *ms, char **args)
 			unset_env(ms, args[i]);
 		i++;
 	}
-	tmp = ft_strjoin("_=", args[tab_len(args)  - 1]);
+	tmp = ft_strjoin("_=", args[tab_len((void **)args)  - 1]);
 	export_env(ms->env, tmp, 1);
 	ft_free(tmp);
 	return (ret);

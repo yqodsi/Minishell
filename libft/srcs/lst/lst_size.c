@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   lst_size.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/02 09:19:48 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/17 14:48:01 by isel-jao         ###   ########.fr       */
+/*   Created: 2021/03/17 12:56:25 by isel-jao          #+#    #+#             */
+/*   Updated: 2021/03/17 15:18:02 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-int ft_pwd(t_ms *ms, char **args)
+int	ft_lstsize(t_lst *lst)
 {
-	char cwd[PATH_MAX];
-	char *tmp;
-	tmp = ft_strjoin("_=", args[tab_len((void **)args) - 1]);
-	export_env(ms->env, tmp, 1);
-	ft_free(tmp);
-	if (getcwd(cwd, PATH_MAX))
-	{
-		ft_putendl_fd(cwd, 1);
-		return (SUCCESS);
-	}
-	else
-		return (ERROR);
+	int i;
+
+	i = 0;
+	if (!lst)
+		return (0);
+	while (lst->next)
+		lst = lst->next;
+	while (lst->prev && ++i)
+		lst = lst->prev;
+	return (i);
 }

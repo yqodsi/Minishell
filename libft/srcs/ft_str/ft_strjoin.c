@@ -1,29 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/02 09:19:48 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/17 14:48:01 by isel-jao         ###   ########.fr       */
+/*   Created: 2019/10/22 20:32:03 by isel-jao          #+#    #+#             */
+/*   Updated: 2021/03/17 15:08:47 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-int ft_pwd(t_ms *ms, char **args)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char cwd[PATH_MAX];
-	char *tmp;
-	tmp = ft_strjoin("_=", args[tab_len((void **)args) - 1]);
-	export_env(ms->env, tmp, 1);
-	ft_free(tmp);
-	if (getcwd(cwd, PATH_MAX))
+	char	*ret;
+	int		i;
+
+	if (!s1)
+		return ((char *)s2);
+	if (!s2)
+		return ((char *)s1);
+	i = (ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!(ret = ft_memalloc(i)))
+		return (NULL);
+	while (*s1)
 	{
-		ft_putendl_fd(cwd, 1);
-		return (SUCCESS);
+		*ret = *s1;
+		ret++;
+		s1++;
 	}
-	else
-		return (ERROR);
+	while (*s2)
+	{
+		*ret = *s2;
+		ret++;
+		s2++;
+	}
+	*ret = '\0';
+	return (ret - i + 1);
 }

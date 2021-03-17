@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   lst_add_back.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/02 09:19:48 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/17 14:48:01 by isel-jao         ###   ########.fr       */
+/*   Created: 2021/03/17 13:03:06 by isel-jao          #+#    #+#             */
+/*   Updated: 2021/03/17 15:15:37 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-int ft_pwd(t_ms *ms, char **args)
+t_lst	*ft_lst_add_back(t_lst **lst, t_lst *new)
 {
-	char cwd[PATH_MAX];
-	char *tmp;
-	tmp = ft_strjoin("_=", args[tab_len((void **)args) - 1]);
-	export_env(ms->env, tmp, 1);
-	ft_free(tmp);
-	if (getcwd(cwd, PATH_MAX))
+	if (!new)
+		return (NULL);
+	if (!(*lst))
 	{
-		ft_putendl_fd(cwd, 1);
-		return (SUCCESS);
+		*lst = new;
+		return (*lst);
 	}
-	else
-		return (ERROR);
+	while ((*lst)->next)
+		*lst = (*lst)->next;
+	(*lst)->next = new;
+	new->prev = *lst;
+	*lst = new;
+	return (*lst);
 }

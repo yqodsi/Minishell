@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/02 09:19:48 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/17 14:48:01 by isel-jao         ###   ########.fr       */
+/*   Created: 2019/10/23 23:29:38 by isel-jao          #+#    #+#             */
+/*   Updated: 2021/03/17 15:08:04 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-int ft_pwd(t_ms *ms, char **args)
+void	ft_putnbr_fd(int n, int fd)
 {
-	char cwd[PATH_MAX];
-	char *tmp;
-	tmp = ft_strjoin("_=", args[tab_len((void **)args) - 1]);
-	export_env(ms->env, tmp, 1);
-	ft_free(tmp);
-	if (getcwd(cwd, PATH_MAX))
+	unsigned int	nbr;
+
+	if (n < 0)
 	{
-		ft_putendl_fd(cwd, 1);
-		return (SUCCESS);
+		ft_putchar_fd('-', fd);
+		nbr = (unsigned int)(n * -1);
 	}
 	else
-		return (ERROR);
+		nbr = (unsigned int)n;
+	if (nbr >= 10)
+		ft_putnbr_fd(nbr / 10, fd);
+	ft_putchar_fd((char)(nbr % 10 + 48), fd);
 }

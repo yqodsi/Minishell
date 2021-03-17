@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/02 09:19:48 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/17 14:48:01 by isel-jao         ###   ########.fr       */
+/*   Created: 2019/10/17 17:33:13 by isel-jao          #+#    #+#             */
+/*   Updated: 2021/03/17 15:07:26 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-int ft_pwd(t_ms *ms, char **args)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	char cwd[PATH_MAX];
-	char *tmp;
-	tmp = ft_strjoin("_=", args[tab_len((void **)args) - 1]);
-	export_env(ms->env, tmp, 1);
-	ft_free(tmp);
-	if (getcwd(cwd, PATH_MAX))
-	{
-		ft_putendl_fd(cwd, 1);
-		return (SUCCESS);
-	}
+	unsigned char	*s;
+	unsigned char	*d;
+
+	if (!dst && !src)
+		return (NULL);
+	s = (unsigned char *)src;
+	d = (unsigned char *)dst;
+	if (s < d)
+		while ((int)(--len) >= 0)
+			*(d + len) = *(s + len);
 	else
-		return (ERROR);
+		ft_memcpy(dst, src, len);
+	return (dst);
 }

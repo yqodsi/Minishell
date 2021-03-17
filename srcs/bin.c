@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bin.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
+/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 23:53:07 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/02 15:43:19 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/17 14:59:38 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int ft_execve(char *path, char **args, t_env *env, t_ms *ms)
 		if (ft_strchr(path, '/') != NULL)
 			execve(path, args, env_array);
 		ret = error_message(path);
-		free_tab(env_array);
+		free_tab((void **)env_array);
 		exit(ret);
 	}
 	else
@@ -125,7 +125,7 @@ int exec_bin(char **args, t_env *env, t_ms *ms)
 		ret = ft_execve(path, args, env, ms);
 	else
 		ret = ft_execve(args[0], args, env, ms);
-	free_tab(bin);
+	free_tab((void **)bin);
 	ft_free(path);
 	las_cmd(ms, args);
 	// export_env(ms->env, ft_strjoin("_=", args[tab_len(args) - 1]), 1);

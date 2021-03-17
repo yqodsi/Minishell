@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
+/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/20 22:05:39 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/14 01:53:17 by isel-jao         ###   ########.fr       */
+/*   Created: 2021/03/17 15:04:07 by isel-jao          #+#    #+#             */
+/*   Updated: 2021/03/17 15:04:11 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
-static int ft_rmp(char **new, int n, char **line, int fd)
+static int	ft_rmp(char **new, int n, char **line, int fd)
 {
-	char *temp;
-	int i;
+	char	*temp;
+	int		i;
 
 	i = 0;
 	while (new[fd][i] && new[fd][i] != '\n')
@@ -41,16 +41,16 @@ static int ft_rmp(char **new, int n, char **line, int fd)
 	return (-1);
 }
 
-int get_next_line(int fd, char **line)
+int			get_next_line(int fd, char **line)
 {
-	char *buf;
-	static char *oldline[4864];
-	char *temp;
-	int n;
+	char		*buf;
+	static char	*oldline[4864];
+	char		*temp;
+	int			n;
 
 	buf = NULL;
-	if (!line || fd < 0 || fd >= 4864 || BUFFER_SIZE <= 0 ||
-		!(buf = malloc(BUFFER_SIZE + 1)) || read(fd, buf, 0) == -1)
+	if (!line || fd < 0 || fd >= 4864 || BUFFER_SIZE <= 0 || \
+	!(buf = malloc(BUFFER_SIZE + 1)) || read(fd, buf, 0) == -1)
 		return (-1);
 	if (!oldline[fd])
 		if (!(oldline[fd] = ft_strdup("")))
@@ -65,8 +65,6 @@ int get_next_line(int fd, char **line)
 			return (-1);
 		free(temp);
 	}
-	// if (n == 0 && oldline[fd][0] == '\0')
-	// 	return (2);
 	free(buf);
 	return (ft_rmp(oldline, n, line, fd));
 }

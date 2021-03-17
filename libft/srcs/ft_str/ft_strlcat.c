@@ -1,43 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/02 09:19:31 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/17 14:38:34 by isel-jao         ###   ########.fr       */
+/*   Created: 2019/10/21 14:13:19 by isel-jao          #+#    #+#             */
+/*   Updated: 2021/03/17 15:08:51 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-int ft_echo(t_ms *ms, char **args)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	int i;
-	int n_option;
-	int s_option;
+	size_t	i;
+	size_t	j;
+	size_t	res;
 
-	i = 1;
-	n_option = 0;
-	s_option = 0;
-	if (tab_len((void **)args) > 1)
+	if (!dst && size == 0)
+		return (ft_strlen(src));
+	if (size < ft_strlen(dst))
+		res = ft_strlen(src) + size;
+	else
+		res = ft_strlen(dst) + ft_strlen(src);
+	i = ft_strlen(dst);
+	j = 0;
+	if (i + 1 < size)
 	{
-		while (ft_strcmp(args[i], "-n") == 0)
+		while (src[j] && i + 1 < size)
 		{
-			n_option = 1;
+			dst[i] = src[j];
 			i++;
+			j++;
 		}
-		while (args[i])
-		{
-				if (s_option)
-					write(1, " ", 1);
-				ft_putstr_fd(args[i], 1);
-				s_option = 1;
-			i++;
-		}
+		dst[i] = '\0';
 	}
-	if (n_option == 0)
-		write(1, "\n", 1);
-	return (SUCCESS);
+	return (res);
 }

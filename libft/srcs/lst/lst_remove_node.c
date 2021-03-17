@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   lst_remove_node.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/02 09:19:48 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/17 14:48:01 by isel-jao         ###   ########.fr       */
+/*   Created: 2021/03/17 13:04:50 by isel-jao          #+#    #+#             */
+/*   Updated: 2021/03/17 15:19:54 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-int ft_pwd(t_ms *ms, char **args)
+void	ft_lst_remove_node(t_lst **lst)
 {
-	char cwd[PATH_MAX];
-	char *tmp;
-	tmp = ft_strjoin("_=", args[tab_len((void **)args) - 1]);
-	export_env(ms->env, tmp, 1);
-	ft_free(tmp);
-	if (getcwd(cwd, PATH_MAX))
+	t_lst *tmp;
+
+	if (!lst)
+		return ;
+	ft_free((*lst)->content);
+	tmp = *lst;
+	if (!(*lst)->prev)
 	{
-		ft_putendl_fd(cwd, 1);
-		return (SUCCESS);
+		*lst = (*lst)->next;
+		(*lst)->prev = tmp->prev;
+		free(tmp);
+		return ;
 	}
-	else
-		return (ERROR);
+	*lst = (*lst)->prev;
+	(*lst)->next = tmp->next;
+	free(tmp);
 }

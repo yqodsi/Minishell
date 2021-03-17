@@ -1,7 +1,5 @@
-
-
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -I includes/
 
 BLACK	= \033[0;30m
 RED		= \033[0;31m
@@ -19,66 +17,88 @@ AR      = ar rcs
 NAME    = libft.a
 HEAD    = libft.h
 
-SRCS_DIR	=	./srcs/
+SRC_DIR	=	./srcs/
 OBJ_DIR		=	./objs/
 INC_DIR		=	./includes/
 
-SRCS    =	ft_memmove.c 
-SRCS	+=	ft_strchr.c 
-SRCS	+=	ft_strnstr.c 
-SRCS	+=	ft_atoi.c 
-SRCS	+=	ft_isprint.c 
-SRCS	+=	ft_memset.c 
-SRCS	+=	ft_strdup.c 
-SRCS	+=	ft_strrchr.c 
-SRCS	+=	ft_bzero.c 
-SRCS	+=	ft_memalloc.c 
-SRCS	+=	ft_strjoin.c 
-SRCS	+=	ft_strtrim.c 
-SRCS	+=	ft_calloc.c 
-SRCS	+=	ft_itoa.c 
-SRCS	+=	ft_putchar_fd.c 
-SRCS	+=	ft_strlcat.c 
-SRCS	+=	ft_substr.c 
-SRCS	+=	ft_isalnum.c 
-SRCS	+=	ft_memccpy.c 
-SRCS	+=	ft_putendl_fd.c 
-SRCS	+=	ft_strlcpy.c 
-SRCS	+=	ft_tolower.c 
-SRCS	+=	ft_isalpha.c 
-SRCS	+=	ft_memchr.c 
-SRCS	+=	ft_putnbr_fd.c 
-SRCS	+=	ft_strlen.c 
-SRCS	+=	ft_toupper.c 
-SRCS	+=	ft_isascii.c 
-SRCS	+=	ft_memcmp.c 
-SRCS	+=	ft_putstr_fd.c 
-SRCS	+=	ft_putstr.c 
-SRCS	+=	ft_strmapi.c 
-SRCS	+=	ft_isdigit.c 
-SRCS	+=	ft_memcpy.c 
-SRCS	+=	ft_split.c 
-SRCS	+=	ft_strncmp.c 
-SRCS	+=	get_next_line.c 
-SRCS	+=	ft_free.c 
-SRCS	+=	ft_strcmp.c 
-SRCS	+=	ft_putendl.c 
-SRCS	+=	ft_strisnum.c 
-SRCS	+=	tab_len.c 
-SRCS	+=	ft_strcpy.c 
+PRINT	=	ft_putchar_fd.c 
+PRINT	+=	ft_putendl_fd.c 
+PRINT	+=	ft_putnbr_fd.c 
+PRINT	+=	ft_putstr_fd.c 
+PRINT	+=	ft_putchar.c 
+PRINT	+=	ft_putendl.c 
+PRINT	+=	ft_putnbr.c 
+PRINT	+=	ft_putstr.c 
 
-OBJ			=	$(addprefix $(OBJ_DIR),$(SRCS:.c=.o))
+MEM		=	ft_memccpy.c 
+MEM		+=	ft_memmove.c 
+MEM		+=	ft_memset.c 
+MEM		+=	ft_memalloc.c 
+MEM		+=	ft_memchr.c 
+MEM		+=	ft_memcmp.c 
+MEM		+=	ft_memcpy.c 
+MEM		+=	ft_calloc.c 
+MEM		+=	ft_free.c 
+MEM		+=	ft_bzero.c 
+
+STR		=	ft_strchr.c 
+STR		+=	ft_strrchr.c 
+STR		+=	ft_strnstr.c 
+STR		+=	ft_strdup.c 
+STR		+=	ft_strjoin.c 
+STR		+=	ft_strtrim.c 
+STR		+=	ft_strlcat.c 
+STR		+=	ft_strlcpy.c 
+STR		+=	ft_substr.c 
+STR		+=	ft_strlen.c 
+STR		+=	ft_split.c 
+STR		+=	ft_strncmp.c 
+STR		+=	ft_strcpy.c 
+SRC		+=	ft_strmapi.c 
+STR		+=	ft_strcmp.c 
+STR		+=	ft_strisnum.c 
+
+CHAR	=	ft_isdigit.c 
+CHAR	+=	ft_toupper.c 
+CHAR	+=	ft_tolower.c 
+CHAR	+=	ft_isalpha.c 
+CHAR	+=	ft_isascii.c 
+CHAR	+=	ft_isalnum.c 
+CHAR	+=	ft_isprint.c 
+
+MATH		=	ft_atoi.c 
+MATH		+=	ft_itoa.c 
+
+TAB		= new_tab.c
+TAB		+= free_tab.c
+TAB		+= tab_len.c
+
+SRC		=	$(addprefix ft_put/, $(PRINT))
+SRC		+=	$(addprefix ft_mem/, $(MEM))
+SRC		+=	$(addprefix ft_str/, $(STR))
+SRC		+=	$(addprefix char/, $(CHAR))
+SRC		+=	$(addprefix ft_math/, $(MATH))
+SRC		+=	$(addprefix tab/, $(TAB))
+SRC		+=	get_next_line.c 
+
+OBJ			=	$(addprefix $(OBJ_DIR),$(SRC:.c=.o))
 
 INC			=	$(addprefix -I,$(INC_DIR))
 
 RM			=	/bin/rm -f
 RM_DIR		=	/bin/rm -rf
 
-$(OBJ_DIR)%.o:$(SRCS_DIR)%.c $(INC_DIR)*.h
-	@$(CC) $(FLAGS) -c $< -o $@
+$(OBJ_DIR)%.o:$(SRC_DIR)%.c $(INC_DIR)*.h
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 all:
 	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)/ft_math
+	@mkdir -p $(OBJ_DIR)/char
+	@mkdir -p $(OBJ_DIR)/ft_mem
+	@mkdir -p $(OBJ_DIR)/ft_put
+	@mkdir -p $(OBJ_DIR)/ft_str
+	@mkdir -p $(OBJ_DIR)/tab
 	@$(MAKE) $(NAME) --no-print-directory
 
 $(NAME): $(OBJ)
@@ -86,10 +106,10 @@ $(NAME): $(OBJ)
 
 
 clean:
-	@rm -rf $(OBJ_DIR)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@rm -f $(NAME)
+	rm -f $(NAME)
 
 eclean: clean fclean
 

@@ -27,6 +27,7 @@ SRC += fd.c
 SRC += get_env.c 
 SRC += minishell.c 
 SRC += parse.c 
+SRC += quotes.c 
 SRC += pwd.c 
 SRC += redir.c 
 SRC += token.c 
@@ -35,6 +36,7 @@ SRC += tools1.c
 SRC += type.c 
 SRC += unset.c 
 SRC += signals.c 
+SRC += sort_args.c 
 
 
 OBJ			=	$(addprefix $(OBJ_DIR),$(SRC:.c=.o))

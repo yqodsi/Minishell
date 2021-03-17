@@ -6,23 +6,12 @@
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 22:29:45 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/16 17:42:43 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/17 17:23:34 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void free_tab(char **args)
-{
-	if (!args)
-		return;
-	while (*args)
-		ft_free(*args++);
-}
-
-/*
-** handle the prompt 
-*/
 
 void ft_prompt(int ret)
 {
@@ -30,10 +19,6 @@ void ft_prompt(int ret)
 	ft_putnbr_fd(ret, STDERR);
 	ft_putstr_fd(" minshell> ", STDERR);
 }
-
-/*
-** handle redirection and executions
-*/
 
 void redir_and_exec(t_ms *ms, t_token *token)
 {
@@ -146,7 +131,6 @@ int main(int ac, char **av, char **env)
 	while (ms.exit == FALSE)
 	{
 		sig_init();
-		// ft_prompt(ms.ret);
 		parse(&ms);
 		if (ms.token && check(&ms, ms.token) == TRUE)
 			minishell(&ms);

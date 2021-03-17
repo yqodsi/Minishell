@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
+/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 09:19:08 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/02 14:24:32 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/17 17:34:50 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,11 @@ int ft_cd(t_env *env, char **args)
 {
 	int ret;
 	char *tmp;
-	tmp = ft_strjoin("_=", args[tab_len(args)  - 1]);
+	tmp = ft_strjoin("_=", args[tab_len((void **)args)  - 1]);
 	export_env(env, tmp, 1);
 	ft_free(tmp);
 	update_pwd(env);
-	if (tab_len(args) > 2)
+	if (tab_len((void **)args) > 2)
 	{
 		ft_putendl_fd("minishell: cd: too many arguments", STDERR);
 		return (1);

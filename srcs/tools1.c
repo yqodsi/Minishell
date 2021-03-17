@@ -6,7 +6,7 @@
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 13:08:43 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/16 14:42:04 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/03/17 14:48:25 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void las_cmd(t_ms *ms, char **args)
 {
 	char *tmp;
-	tmp = ft_strjoin("_=", args[tab_len(args) - 1]);
+	tmp = ft_strjoin("_=", args[tab_len((void **)args) - 1]);
 	export_env(ms->env, tmp, 1);
 	ft_free(tmp);
 }

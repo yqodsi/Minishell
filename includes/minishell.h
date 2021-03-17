@@ -217,7 +217,7 @@ void redir(t_ms *ms, t_token *token, int type);
 void input(t_ms *ms, t_token *token);
 int ft_pipe(t_ms *ms);
 
-void free_tab(char **args);
+// void free_tab(char **args);
 void exec_cmd(t_ms *ms, t_token *token);
 char *expansions(char *arg, t_env *env, int ret);
 void free_token(t_ms *ms);
@@ -239,6 +239,8 @@ void sig_quit(int code);
 void sig_int(int code);
 void ft_prompt(int ret);
 void las_cmd(t_ms *ms, char **args);
+void sort_args(t_ms *ms);
+int is_last_valid_arg(t_token *token);
 
 t_sig g_sig;
 
