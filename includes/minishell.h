@@ -241,6 +241,10 @@ void ft_prompt(int ret);
 void las_cmd(t_ms *ms, char **args);
 void sort_args(t_ms *ms);
 int is_last_valid_arg(t_token *token);
+int update_oldpwd(t_env *env);
+int update_pwd(t_env *env);
+int go_to_path(int option, t_env *env);
+
 
 t_sig g_sig;
 

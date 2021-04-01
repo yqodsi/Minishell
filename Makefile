@@ -17,6 +17,7 @@ INC_DIR		=	./includes/
 SRC = bin.c 
 SRC += builtin.c 
 SRC += cd.c 
+SRC += cd_tools.c 
 SRC += echo.c 
 SRC += env.c 
 SRC += exec.c 
